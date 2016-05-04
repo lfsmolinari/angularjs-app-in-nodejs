@@ -1,0 +1,166 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Fornecedor</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Fornecedor</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <form role="form">
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>
+                            Dados Gerais
+                            <!--<small>Simple login form example</small>-->
+                        </h5>
+                        <!--<div ibox-tools></div>-->
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>
+                                    Tipo de Fornecedor:
+                                </label>
+                                <div class="form-group">
+                                    <label class="col-sm-3">
+                                        <input icheck type="radio" name="tipoPessoa"
+                                               ng-model="main.checkFour"> F&iacute;sica
+                                    </label>
+                                    <label class="col-sm-3">
+                                        <input icheck type="radio" name="tipoPessoa"
+                                               ng-model="main.check8"> Jur&iacute;dica
+                                    </label>
+                                    <label class="col-sm-3 col-sm-offset-3">
+                                        <input icheck type="checkbox" name="tipoPessoa" ng-model="main.check2"> Bloquear?
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Parceiro desde?</label>
+                                    <div class="input-group date">
+                                        <input type="datetime" class="form-control" date-time ng-model="sampleDate" view="date" auto-close="true">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nome:</label>
+                                    <!--<input type="email" placeholder="Enter email" class="form-control">-->
+                                    <input type="text" placeholder="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Apelido:</label>
+                                    <input type="text" placeholder="" class="form-control">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                                <div class="form-group">
+                                    <label>CPF:</label>
+                                    <input type="text" placeholder="" class="form-control">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                                <div class="form-group">
+                                    <label>RG:</label>
+                                    <input type="text" placeholder="" class="form-control">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Dados de Contato</h5>
+
+                        <!--<div ibox-tools></div>-->
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <input type="email" placeholder="email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone:</label>
+                                    <input type="tel" placeholder="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Celular:</label>
+                                    <input type="tel" placeholder="" class="form-control">
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="form-group col-md-10">
+                                        <label>Endere&ccedil;o:</label>
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>N&uacute;mero:</label>
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label>CEP:</label>
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Bairo:</label>
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Cidade:</label>
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>UF:</label>
+                                        <input type="text" placeholder="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <div class="row form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-white" type="submit">Cancelar</button>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="ibox-content">
+                    </div>-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Local style for demo purpose only -->
+<!-- You have to set your width/height it has to be in px -->
+<style>
+    .cropArea {
+        overflow: hidden;
+        width:400px;
+        height:300px;
+    }
+</style>

@@ -1,0 +1,275 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Cliente / Fornecedor</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Cliente - Fornecedor</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row" data-ng-controller="ClienteController">
+        <form role="form" name="frmPessoa" data-ng-submit="Salvar()">
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>
+                            Dados Gerais
+                        </h5>
+                        <!--<div ibox-tools></div>-->
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>
+                                    Tipo de Cliente:
+                                </label>
+                                <div class="form-group">
+                                    <label class="col-sm-3">
+                                        <input icheck type="radio" name="tipoPessoa" required data-ng-change="ChangePersonType()"
+                                               data-ng-model="Pessoa.TipoPessoa" data-ng-value="1"> F&iacute;sica
+                                    </label>
+                                    <label class="col-sm-3">
+                                        <input icheck type="radio" name="tipoPessoa" required data-ng-change="ChangePersonType()"
+                                               data-ng-model="Pessoa.TipoPessoa" data-ng-value="2"> Jur&iacute;dica
+                                    </label>
+                                    <label class="col-sm-3 col-sm-offset-3">
+                                        <input icheck type="checkbox" name="status" data-ng-model="Bloquear" data-ng-value="true"> Bloquear?
+                                    </label>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label>Nome:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Pessoa.Nome" required="required">
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label data-ng-show="showPF">Apelido:</label>
+                                    <label data-ng-hide="showPF">Nome Fantasia:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Pessoa.NomeFantasia" required="required">
+                                </div>
+                                <div class="form-group col-sm-6" data-ng-show="showPF" data-ng-class="{ 'has-error' : frmPessoa.Cpf.$invalid && !frmPessoa.Cpf.$pristine, 'has-success' : formFuncionario.Cpf.$valid}">
+                                    <label>CPF:</label><!--<small>formFuncionario.FuncionarioCPF.$valid: <strong>{{ frmPessoa.Cpf.$valid }}</strong></small>-->
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Pessoa.CPF" data-mask="99999999999" data-ng-cpf name="Cpf" id="Cpf" required="required" data-ng-disabled="!showPF" data-ng-blur="VerificarCpfCnpj()">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                                <div class="form-group col-sm-6" data-ng-show="showPF">
+                                    <label>RG:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Pessoa.RG" data-mask="99.999.999-9" required="required" data-ng-disabled="!showPF">
+                                </div>
+                                <div class="form-group col-sm-6" data-ng-hide="showPF" data-ng-class="{ 'has-error' : frmPessoa.Cnpj.$invalid && !frmPessoa.Cnpj.$pristine, 'has-success' : formFuncionario.Cnpj.$valid}">
+                                    <label>CNPJ:</label><!--<small>formFuncionario.FuncionarioCPF.$valid: <strong>{{ frmPessoa.Cnpj.$valid }}</strong></small>-->
+                                    <input type="text" placeholder="" data-ng-disabled="showPF" class="form-control" data-ng-model="Pessoa.CNPJ" data-mask="99999999999999" data-ng-cnpj name="Cnpj" id="Cnpj" required="required" data-ng-blur="VerificarCpfCnpj()">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                                <div class="form-group col-sm-6" data-ng-hide="showPF">
+                                    <label>IE:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Pessoa.IE">
+                                </div>
+                                <div class="form-group col-sm-8">
+                                    <label>Email:</label>
+                                    <input type="email" placeholder="" class="form-control" data-ng-model="Contato.Email" required="required">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label>Celular:</label>
+                                    <input type="tel" placeholder="" class="form-control" data-ng-model="Contato.Celular" required="required" data-mask="(99) 99999-9999">
+                                </div>
+                                <div class="form-group col-sm-6 no-margins">
+                                    <label>Parceiro desde?</label>
+                                    <div class="input-group date">
+                                        <input type="datetime" class="form-control" date-time data-ng-model="Pessoa.DataCadastro" required="required" view="date" min-view="date" auto-close="true" data-mask="99-99-9999" format="{{format}}">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 no-margins" ng-class="{ 'has-error' : frmPessoa.limCredito.$invalid && !frmPessoa.limCredito.$pristine, 'has-success' : frmPessoa.limCredito.$valid}">
+                                    <label>Limite de Cr&eacute;dito:</label>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon">R$</span><input name="limCredito" type="text" maxlength="8" currency-mask placeholder="" class="form-control" data-ng-model="Pessoa.LimiteCredito" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 no-margins">
+                                    <label></label>
+                                    <div class="checkbox checkbox-success checkbox-inline" style="margin-top: 7px;">
+                                        <input id="isCliente" name="isCliente" type="checkbox" data-ng-model="Pessoa.IsCliente" value="true" data-ng-value="true">
+                                        <label for="isCliente"><strong>Cliente</strong></label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 no-margins">
+                                    <label></label>
+                                    <div class="checkbox checkbox-success checkbox-inline" style="margin-top: 7px;">
+                                        <input id="isFornecedor" name="isFornecedor" type="checkbox" data-ng-model="Pessoa.IsFornecedor" value="true" data-ng-value="true">
+                                        <label for="isFornecedor"><strong>Fornecedor</strong></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Dados de Cadastrais</h5>
+
+                        <!--<div ibox-tools></div>-->
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <div class="form-group col-sm-12">
+                                    <label>Telefone:</label>
+                                    <input type="tel" placeholder="" class="form-control" data-ng-model="Contato.Telefone" required="required" data-mask="(99) 9999-9999">
+                                </div>
+                                <div class="form-group col-sm-7">
+                                    <label>Lista de Endere&ccedil;os:</label>
+                                    <select id="enderecos" name="enderecos" class="form-control" required data-ng-model="selectedEnd" data-ng-options='e.Endereco.CEP as (e.Endereco.CEP + " - " + e.Endereco.Logradouro) for e in Pessoa.Enderecos track by e.Endereco.CEP' data-ng-change="ChangeEndereco()">
+                                        <option style="display:none"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-5">
+                                    <button class="btn btn-primary" style="margin-top:23px;" type="button" data-ng-hide="salvarNovoEnd" data-ng-click="AddNovoEndereco()">Novo</button>
+                                    <button class="btn btn-info" style="margin-top:23px;" type="button" data-ng-hide="salvarNovoEnd" data-ng-click="EditarEnd()"><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-primary" style="margin-top:23px;" type="button" data-ng-show="salvarNovoEnd" data-ng-click="SalvarNovoEndereco()"><i class="fa fa-check"></i></button>
+                                    <button class="btn btn-danger" style="margin-top:23px;" type="button" data-ng-show="salvarNovoEnd" data-ng-click="CancelarNovoEndereco()"><i class="fa fa-times"></i></button>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group col-sm-5">
+                                        <label>CEP:</label>
+                                        <input type="text" id="txtCep" placeholder="" data-ng-model="Endereco.Endereco.CEP" data-mask="99999-999" data-ng-blur="FindCEP()"
+                                               ng-model-options="{debounce: 0 }" class="form-control" required="required" data-ng-disabled="!isEdit">
+                                    </div>
+                                    <div class="form-group col-sm-7">
+                                        <label>Complemento:</label>
+                                        <input type="text" placeholder="" data-ng-model="Endereco.Endereco.Complemento" maxlength="50" class="form-control" data-ng-disabled="!isEdit">
+                                    </div>
+                                    <div class="form-group col-sm-9">
+                                        <label>Logradouro:</label>
+                                        <input type="text" placeholder="" class="form-control" data-ng-model="Endereco.Endereco.Logradouro" data-ng-disabled="!isEdit">
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label>N&uacute;mero:</label>
+                                        <input type="text" placeholder="" class="form-control" data-ng-model="Endereco.Endereco.Numero" required="required" data-ng-disabled="!isEdit">
+                                    </div>
+                                    <div class="form-group col-sm-8">
+                                        <label>Bairo:</label>
+                                        <input type="text" placeholder="" class="form-control" data-ng-model="Endereco.Endereco.Bairro" data-ng-disabled="!isEdit">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>UF:</label>
+                                        <input type="text" placeholder="" class="form-control" data-ng-model="Endereco.Endereco.UF" data-ng-disabled="!isEdit">
+                                    </div>
+                                    <div class="form-group col-sm-9">
+                                        <label>Cidade:</label>
+                                        <input type="text" placeholder="" class="form-control" data-ng-model="Endereco.Endereco.Cidade" data-ng-disabled="!isEdit">
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label></label>
+                                        <div class="checkbox checkbox-success checkbox-inline" style="margin-top: 7px;">
+                                            <input id="enderecoPrincipal" name="enderecoPrincipal" type="checkbox" data-ng-model="Endereco.PessoasEndereco.IsPrincipal" value="true" data-ng-value="true" data-ng-disabled="!isEdit" data-ng-change="ChangePrincipalEnd()">
+                                            <label for="enderecoPrincipal"><strong>Principal?</strong></label>
+                                        </div>
+                                        <!--<input icheck type="checkbox" name="enderecoPrincipal" data-ng-model="Endereco.IsPrincipal" value="true" data-ng-value="true" data-ng-disabled="!isEdit" data-ng-change="ChangePrincipalEnd()">-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12" data-ng-hide="showPF">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Dados do Contato</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-6">
+                                    <label>Contato:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="ContatoJuridico.Nome">
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label>Ramal / ID Radio:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="ContatoJuridico.RamalRadio">
+                                </div>
+                                <div class="form-grou col-sm-3">
+                                    <label>Celular:</label>
+                                    <input type="tel" placeholder="" class="form-control" data-ng-model="ContatoJuridico.Celular" data-mask="(99) 99999-9999">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label>Email:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="ContatoJuridico.Email">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label>Departamento:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="ContatoJuridico.Departamento">
+                                </div>
+
+                                <div class="form-group col-sm-2">
+                                    <button class="btn btn-primary" style="margin-top:23px;" type="button" data-ng-hide="salvarContato" data-ng-click="AddContatoJuridico()">Adicionar</button>
+                                    <button class="btn btn-primary" style="margin-top:23px;" type="button" data-ng-show="salvarContato" data-ng-click="SalvarContatoJuridico()  "><i class="fa fa-check"></i></button>
+                                    <button class="btn btn-danger" style="margin-top:23px;" type="button" data-ng-show="salvarContato"  data-ng-click="CancelarContatoJuridico()"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-2">Contato</th>
+                                            <th class="col-sm-2">Ramal / ID Radio</th>
+                                            <th class="col-sm-2">Celular</th>
+                                            <th class="col-sm-3">Email</th>
+                                            <th class="col-sm-2">Departamento</th>
+                                            <th class="col-sm-1"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="contatoJuridico in Pessoa.ContatoJuridico">
+                                            <td>{{ contatoJuridico.Nome }}</td>
+                                            <td>{{ contatoJuridico.RamalRadio }}</td>
+                                            <td>{{ contatoJuridico.Celular }}</td>
+                                            <td>{{ contatoJuridico.Email }}</td>
+                                            <td>{{ contatoJuridico.Departamento }}</td>
+                                            <td style="display:none">{{contatoJuridico.IdContatoJuridico}}</td>
+                                            <td class="footable-visible footable-last-column text-nowrap">
+                                                <a href="javascript:void()" title="Remover" data-ng-click="RemoverContatoJuridico($index)"><i class="fa fa-trash text-navy"></i></a>&nbsp;&nbsp;&nbsp;
+                                                <a href="javascript:void()" title="Editar" data-ng-click="EditarContatoJuridico($index)"><i class="fa fa-edit text-navy"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <div class="row form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-white" type="reset">Cancelar</button>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="ibox-content">
+                </div>-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

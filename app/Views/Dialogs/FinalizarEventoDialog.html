@@ -1,0 +1,17 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Finalizar Evento</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+          <label>Descrição</label>
+          <tags-input ng-model="tagsArray"  placeholder="Entre com as TAGs" replace-spaces-with-dashes="false"></tags-input>
+          <!-- <textarea placeholder="Entre com a Descrç&atilde;o da TAGs"  ng-model="descricao"> -->
+          </textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="finalizar()">Finalizar</button>
+    </div>
+</div>

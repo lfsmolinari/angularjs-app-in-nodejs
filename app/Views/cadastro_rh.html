@@ -1,0 +1,249 @@
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>RH</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="Index.html">Home</a>
+            </li>
+            <li>
+                <a>Cadastro</a>
+            </li>
+            <li class="active">
+                <strong>Funcion&aacute;rio</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row" ng-controller="RhController">
+        <form role="form" ng-submit="Salvar(Funcionario, Contato, Endereco)" name="formFuncionario">
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>
+                            Dados Gerais
+                        </h5>
+                        <!--<div ibox-tools></div>-->
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>
+                                    Qual &eacute; a forma de contrata&ccedil;&atilde;o ?
+                                </label>
+                                <div class="form-group">
+                                    <label class="col-sm-2">
+                                        <input icheck type="radio" name="tipoFuncionario" required
+                                               data-ng-model="Funcionario.IsCLT" data-ng-value="true"> CLT
+                                    </label>
+                                    <label class="col-sm-4">
+                                        <input icheck type="radio" name="tipoFuncionario" required
+                                               data-ng-model="Funcionario.IsCLT" data-ng-value="false"> Terceiriza&ccedil;&atilde;o
+                                    </label>
+                                    <label class="col-sm-3 col-sm-offset-3">
+                                        <input icheck type="checkbox" name="status" data-ng-model="Funcionario.Ativo" data-ng-value="1" value="1"> Ativo?
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nome:</label>
+                                    <!--<input type="email" placeholder="Enter email" class="form-control">-->
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Funcionario.Nome" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label>Apelido:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Funcionario.Apelido">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error' : formFuncionario.FuncionarioCPF.$invalid && !formFuncionario.FuncionarioCPF.$pristine, 'has-success' : formFuncionario.FuncionarioCPF.$valid}">
+                                    <label>CPF:</label><!--<small>formFuncionario.FuncionarioCPF.$valid: <strong>{{ formFuncionario.FuncionarioCPF.$valid }}</strong></small>-->
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Funcionario.CPF" data-mask="99999999999" data-ng-cpf name="FuncionarioCPF" required="required">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                                <div class="form-group">
+                                    <label>RG:</label>
+                                    <input type="text" placeholder="" class="form-control" data-ng-model="Funcionario.RG" data-mask="99.999.999-9" required="required">
+                                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                                </div>
+                                <div class="form-group col-sm-5 no-padding">
+                                    <label>Emissor RG:</label>
+                                    <input type="text" placeholder="" class="form-control" maxlength="3" data-ng-model="Funcionario.EmissorRG" required="required">
+                                </div>
+                                <div class="form-group col-sm-2">
+                                    <label>UF RG:</label>
+                                    <input type="text" placeholder="" class="form-control" maxlength="2" data-ng-model="Funcionario.UFemitidoRG" required="required">
+                                </div>
+                                <div class="form-group col-sm-5 no-padding" ng-class="{ 'has-error' : formFuncionario.salario.$invalid && !formFuncionario.salario.$pristine, 'has-success' : formFuncionario.salario.$valid}">
+                                    <label>Sal&aacute;rio:</label>
+                                    <div class="input-group m-b">
+                                        <!--<span class="input-group-addon">R$</span><input type="text" placeholder="" class="form-control" data-ng-model="Funcionario.Salario" data-mask="99999.99" required="required">-->
+                                        <span class="input-group-addon">R$</span><input name="salario" type="text" maxlength="8" currency-mask placeholder="" class="form-control" data-ng-model="Funcionario.Salario" required="required">
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Funcion&aacute;rio desde?</label>
+                                    <div class="input-group date">
+                                        <input type="datetime" class="form-control" date-time data-ng-model="Funcionario.DataCadastro" required="required" view="date" min-view="date" auto-close="true" data-mask="99-99-9999" format="{{format}}">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 no-padding">
+                                    <label>Hor&aacute;rio de Entrada:</label>
+                                    <div class="input-group " clock-picker data-autoclose="true">
+                                        <input type="text" class="form-control" value="09:30" data-mask="99:99" data-ng-model="Funcionario.HorarioEntrada" required="required">
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label>Hor&aacute;rio de Sa&iacute;da:</label>
+                                    <div class="input-group " clock-picker data-autoclose="true">
+                                        <!--<input type="datetime" class="form-control" date-time data-ng-model="Funcionario.HorarioSaida" view="hours" min-view="minutes" auto-close="true" format="HH:mm">-->
+                                        <input type="text" class="form-control" value="" data-mask="99:99" data-ng-model="Funcionario.HorarioSaida" required="required">
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-clock-o"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 no-padding">
+                                    <label>
+                                        Possui VR?
+                                    </label>
+                                    <div class="form-group">
+                                        <label class="col-sm-offset-1 col-sm-6 no-padding">
+                                            <input icheck type="radio" name="possuiVR" required
+                                                   data-ng-model="Funcionario.HasVR" data-ng-value="true"> Sim
+                                        </label>
+                                        <label class="col-sm-5 no-padding">
+                                            <input icheck type="radio" name="possuiVR" required
+                                                   data-ng-model="Funcionario.HasVR" data-ng-value="false"> N&atilde;o
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Dados Gerais</h5>
+
+                        <!--<div ibox-tools></div>-->
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon">@</span>
+                                        <input type="email" placeholder=" " data-ng-model="Contato.Email" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefone:</label>
+                                    <input type="tel" placeholder="" data-ng-model="Contato.Telefone" class="form-control" data-mask="(99) 9999-9999">
+                                </div>
+                                <div class="form-group">
+                                    <label>Celular:</label>
+                                    <input type="tel" placeholder="" data-ng-model="Contato.Celular" class="form-control" data-mask="(99) 99999-9999" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label>Endere&ccedil;o:</label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group col-sm-9">
+                                        <label>Logradouro:</label>
+                                        <input type="text" placeholder="" data-ng-model="Endereco.Logradouro" class="form-control">
+                                    </div>
+                                    <div class="form-group col-sm-3">
+
+                                        <label>N&uacute;mero:</label>
+                                        <input type="text" placeholder="" data-ng-model="Endereco.Numero" maxlength="7" class="form-control" required="required">
+
+                                    </div>
+                                    <div class="form-group col-sm-12 no-padding">
+                                        <div class="col-sm-6">
+                                            <label>CEP:</label>
+                                            <input type="text" id="txtCep" placeholder="" data-ng-model="Endereco.CEP" data-mask="99999-999" data-ng-blur="FindCEP(Endereco.CEP)" ng-model-options="{debounce: 0 }" class="form-control" required="required">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>Complemento:</label>
+                                            <input type="text" placeholder="" data-ng-model="Endereco.Complemento" maxlength="50" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>Bairo:</label>
+                                        <input type="text" placeholder="" data-ng-model="Endereco.Bairro" class="form-control">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>Cidade:</label>
+                                        <input type="text" placeholder="" data-ng-model="Endereco.Cidade" class="form-control">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label>UF:</label>
+                                        <input type="text" placeholder="" data-ng-model="Endereco.UF" maxlength="2" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 no-padding">
+                                    <label>
+                                        Possui VT?
+                                    </label>
+                                    <div class="form-group">
+                                        <label class="col-sm-offset-1 col-sm-6 no-padding">
+                                            <input icheck type="radio" name="HasVT" required
+                                                   data-ng-model="Funcionario.HasVT" data-ng-value="true"> Sim
+                                        </label>
+                                        <label class="col-sm-5 no-padding">
+                                            <input icheck type="radio" name="HasVT" required
+                                                   data-ng-model="Funcionario.HasVT" data-ng-value="false"> N&atilde;o
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-8 no-margins">
+                                    <label>Cargo:</label>
+                                    <div class="form-group no-margins ">
+                                        <select id="cargos" name="cargos" class="form-control" data-ng-model="Funcionario.Cargo" required data-ng-options="c as c.Descricao for c in Cargos track by c._id">
+                                            <option value="">- Selecione -</option>
+                                        </select>
+                                        <!--<select data-ng-model="Funcionario.IdCargo">
+                                            <option data-ng-selected="{{c.value == Funcionario.IdCargo}}"
+                                                    data-ng-repeat="c in Cargos"
+                                                    value="{{c.IdCargo}}">
+                                                {{c.Descricao}}
+                                            </option>
+                                        </select>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <div class="row form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-white" type="button">Cancelar</button>
+                                <button class="btn btn-primary" type="submit" >Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="ibox-content">
+                    </div>-->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

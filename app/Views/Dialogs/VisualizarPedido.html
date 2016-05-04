@@ -1,0 +1,82 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">Nro. Pedido: {{Pedido.CodigoPedido}}</h4>
+        <small class="pull-right" ng-if="!hideStatus">{{Pedido.Status.Descricao}}</small>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+          <div class="form-group col-sm-6">
+              <label>Nome:</label>
+              <!--<input type="email" placeholder="Enter email" class="form-control">-->
+              {{Cliente.Nome}}
+          </div>
+          <div class="form-group col-sm-6" data-ng-show="showPF">
+              <label>CPF:</label>
+              {{Cliente.CPF}}
+          </div>
+          <div class="form-group col-sm-6" data-ng-hide="showPF">
+              <label>CNPJ:</label>
+              {{Cliente.CNPJ}}
+          </div>
+          <div class="form-group col-sm-6">
+              <label data-ng-show="showPF">Apelido:</label>
+              <label data-ng-hide="showPF">Nome Fantasia:</label>
+              {{Cliente.NomeFantasia}}
+              <!--<input type="password" placeholder="Password" class="form-control">-->
+          </div>
+          <div class="form-group col-sm-6" data-ng-show="showPF">
+              <label>RG:</label>
+              {{Cliente.RG}}
+              <!--<input type="password" placeholder="Password" class="form-control">-->
+          </div>
+          <div class="form-group col-sm-6" data-ng-hide="showPF">
+              <label>IE:</label>
+              {{Cliente.IE}}
+              <!--<input type="password" placeholder="Password" class="form-control">-->
+          </div>
+          <div class="form-group col-sm-6">
+              <label>Telefone:</label>
+              {{Contato.Telefone}}
+          </div>
+          <div class="form-group col-sm-6">
+              <label>Celular:</label>
+              {{Contato.Celular}}
+          </div>
+          <div class="form-group col-sm-12">
+              <label>E-mail:</label>
+              {{Contato.Email}}
+          </div>
+          <div class="form-group col-sm-12">
+              <div class="table-responsive">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th class="col-sm-2">D.Entrega</th>
+                              <th class="col-sm-2">D.Retirada</th>
+                              <th class="col-sm-1">Prazo</th>
+                              <th class="col-sm-3">Material</th>
+                              <th class="col-sm-1">Qtd</th>
+                              <th class="col-sm-1">Valor</th>
+                              <th class="col-sm-1">Total</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="produto in ItensPedidos">
+                              <td>{{produto.DataEntrega | date:'dd/MM/yyyy'}}</td>
+                              <td>{{produto.DataRetirada | date:'dd/MM/yyyy'}}</td>
+                              <td>{{produto.Prazo}}</td>
+                              <td>{{produto.MaterialColetado.Descricao}}</td>
+                              <td>{{produto.Quantidade}}</td>
+                              <td>{{produto.Valor | currency:"R$"}}</td>
+                              <td>{{produto.ValorTotal | currency:"R$"}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="cancel()">Fechar</button>
+    </div>
+</div>
